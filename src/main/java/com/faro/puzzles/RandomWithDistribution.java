@@ -38,24 +38,24 @@ public class RandomWithDistribution {
     /**
      * Return a random string based on the distributions
      * 
-     * @param stringDistrobutions
+     * @param stringDistributions
      * @return a random string
      */
-    public String pickString(Map<String, Integer> stringDistrobutions) {
-        if(stringDistrobutions == null || stringDistrobutions.isEmpty()) {
+    public String pickString(Map<String, Integer> stringDistributions) {
+        if(stringDistributions == null || stringDistributions.isEmpty()) {
             throw new IllegalArgumentException("must supply distributions");
         }
         
         //TODO: assuming no overflow, refactor to BigInteger
-        long totalPopulation = 0;
+        long total = 0;
 
-        for (Integer population : stringDistrobutions.values()) {
-            totalPopulation += population;
+        for (Integer distribution : stringDistributions.values()) {
+            total += distribution;
         }
 
-        long randValue = rand.nextLong(totalPopulation) + 1;
+        long randValue = rand.nextLong(total) + 1;
 
-        for (Entry<String, Integer> entry : stringDistrobutions.entrySet()) {
+        for (Entry<String, Integer> entry : stringDistributions.entrySet()) {
             randValue -= entry.getValue();
 
             if (randValue <= 0) {
